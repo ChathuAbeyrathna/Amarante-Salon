@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: #5b1a2e;
+  color: #f2eae0;
+}
+
+@layer components {
+  /* real studio photography — shown in full color, just a subtle
+     hover-zoom and a slight warmth so images feel considered rather
+     than raw. Add the .duotone class back to any element to opt into
+     the old grayscale/color-tint treatment if you ever want it again. */
+  .photo {
+    @apply relative overflow-hidden bg-ink;
+  }
+  .photo img {
+    @apply h-full w-full object-cover transition-transform duration-[1100ms] ease-smooth;
+    filter: saturate(1.05) contrast(1.02);
+  }
+  .photo.duotone img {
+    filter: grayscale(1) contrast(1.05) brightness(1.02);
+  }
+  .photo.duotone::before {
+    content: "";
+    @apply pointer-events-none absolute inset-0;
+    mix-blend-mode: color;
+    background: linear-gradient(135deg, #5b1a2e, #cbaa78);
+    opacity: 0.82;
+  }
+  .photo-hover:hover img {
+    @apply scale-[1.06];
+  }
+
+  .hairline {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #a9834f, transparent);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-8 py-3.5 text-sm font-semibold transition-all duration-300 ease-smooth;
+  }
+  .btn-primary {
+    @apply bg-bordeaux text-paper hover:-translate-y-0.5 hover:bg-bordeauxdeep;
+  }
+  .btn-ghost {
+    @apply border border-current text-ink hover:-translate-y-0.5 hover:bg-ink hover:text-paper;
+  }
+  .btn-light {
+    @apply bg-paper text-ink hover:-translate-y-0.5 hover:bg-goldlight;
+  }
+
+  .tag {
+    @apply inline-flex items-center gap-2 text-sm font-semibold text-bordeaux;
+  }
+  .tag::before {
+    content: "";
+    @apply inline-block h-1.5 w-1.5 rounded-full bg-gold;
+  }
+
+  .link-arrow {
+    @apply inline-flex items-center gap-2 font-semibold;
+  }
+  .link-arrow svg {
+    @apply h-4 w-4 transition-transform duration-300 ease-smooth;
+  }
+  .link-arrow:hover svg {
+    @apply translate-x-1;
+  }
+}
